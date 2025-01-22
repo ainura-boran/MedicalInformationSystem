@@ -8,7 +8,7 @@ public class Doctor {
     private String officeNumber;
     private int experienceYears;
     private String contactInfo;
-
+    //Getters and Setters
     public int getId() {
         return id;
     }

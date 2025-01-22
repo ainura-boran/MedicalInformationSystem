@@ -1,6 +1,7 @@
 package models;
 
 public class Patient {
+
     private int id;
     private String iin;
     private String name;
@@ -12,7 +13,7 @@ public class Patient {
     private String bloodGroup;
     private String rhesusFactor;
     private String contactInfo;
-
+    //Getters and Setters
     public int getId() {
         return id;
     }
