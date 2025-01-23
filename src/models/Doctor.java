@@ -9,6 +9,19 @@ public class Doctor {
     private int experienceYears;
     private String contactInfo;
     //Getters and Setters
+    public Doctor(){
+
+    }
+
+    public Doctor(int id, String fullName, String specialization, String workHours, String officeNumber, int experienceYears, String contactInfo) {
+        setId(id);
+        setFullName(fullName);
+        setSpecialization(specialization);
+        setWorkHours(workHours);
+        setOfficeNumber(officeNumber);
+        setExperienceYears(experienceYears);
+        setContactInfo(contactInfo);
+    }
     public int getId() {
         return id;
     }
@@ -50,5 +63,17 @@ public class Doctor {
     }
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
+    }
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id: " + id +
+                ", name: '" + fullName + '\'' +
+                 " specialization: '" + specialization+ '\'' +
+                ", workhours: " + workHours + '\''+
+                ", officeNumber: " + officeNumber + '\'' +
+                ", experienceYears: " + experienceYears + '\'' +
+                ", contactInfo: " + contactInfo + '\'' +
+                '}';
     }
 }

@@ -14,6 +14,24 @@ public class Patient {
     private String rhesusFactor;
     private String contactInfo;
     //Getters and Setters
+
+    public Patient(){
+
+    }
+    public Patient(int id, String iin, String name, String dateOfBirth, String gender, String nationality, String citizenship, String address, String bloodGroup, String rhesusFactor, String contactInfo) {
+        setId(id);
+        setIin(iin);
+        setName(name);
+        setDateOfBirth(dateOfBirth);
+        setGender(gender);
+        setNationality(nationality);
+        setCitizenship(citizenship);
+        setAddress(address);
+        setBloodGroup(bloodGroup);
+        setRhesusFactor(rhesusFactor);
+        setContactInfo(contactInfo);
+    }
+
     public int getId() {
         return id;
     }
@@ -80,4 +98,22 @@ public class Patient {
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id: " + id +
+                ", iin: '" + iin + '\'' +
+                " name: '" + name+ '\'' +
+                ", dateOfBirth: " + dateOfBirth + '\''+
+                ", gender: " + gender + '\'' +
+                ", nationality: " + nationality + '\'' +
+                ", citizensjip: " + citizenship + '\'' +
+                ", bloodGroup: " + bloodGroup + '\'' +
+                ", rhesusFactor: " + rhesusFactor + '\'' +
+                ", contactInfo: " + contactInfo + '\'' +
+                '}';
+    }
+
+
 }
