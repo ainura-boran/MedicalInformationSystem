@@ -44,4 +44,12 @@ public class Appointment {
     public void setTime(String time) {
         this.time = time;
     }
+
+
+    @Override
+    public String toString() {
+        return "Appointment: " + "\n" +
+                "Doctor" + idDoctor + "\n" +
+                "Patien: " + idPatient;
+    }
 }
