@@ -4,76 +4,78 @@ public class Doctor {
     private int id;
     private String fullName;
     private String specialization;
-    private String workHours;
-    private String officeNumber;
+    private String workingHours;
+    private String office;
     private int experienceYears;
-    private String contactInfo;
-    //Getters and Setters
-    public Doctor(){
 
+    public Doctor() {}
+
+    public Doctor(int id, String fullName, String specialization, String workingHours, String office, int experienceYears) {
+        this.id = id;
+        this.fullName = fullName;
+        this.specialization = specialization;
+        this.workingHours = workingHours;
+        this.office = office;
+        this.experienceYears = experienceYears;
     }
 
-    public Doctor(int id, String fullName, String specialization, String workHours, String officeNumber, int experienceYears, String contactInfo) {
-        setId(id);
-        setFullName(fullName);
-        setSpecialization(specialization);
-        setWorkHours(workHours);
-        setOfficeNumber(officeNumber);
-        setExperienceYears(experienceYears);
-        setContactInfo(contactInfo);
-    }
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public String getFullName() {
         return fullName;
     }
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
     public String getSpecialization() {
         return specialization;
     }
+
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
-    public String getWorkHours() {
-        return workHours;
+
+    public String getWorkingHours() {
+        return workingHours;
     }
-    public void setWorkHours(String workHours) {
-        this.workHours = workHours;
+
+    public void setWorkingHours(String workingHours) {
+        this.workingHours = workingHours;
     }
-    public String getOfficeNumber() {
-        return officeNumber;
+
+    public String getOffice() {
+        return office;
     }
-    public void setOfficeNumber(String officeNumber) {
-        this.officeNumber = officeNumber;
+
+    public void setOffice(String office) {
+        this.office = office;
     }
+
     public int getExperienceYears() {
         return experienceYears;
     }
+
     public void setExperienceYears(int experienceYears) {
         this.experienceYears = experienceYears;
     }
-    public String getContactInfo() {
-        return contactInfo;
-    }
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
-    }
+
     @Override
     public String toString() {
-        return "Doctor{" +
-                "id: " + id +
-                ", name: '" + fullName + '\'' +
-                 " specialization: '" + specialization+ '\'' +
-                ", workhours: " + workHours + '\''+
-                ", officeNumber: " + officeNumber + '\'' +
-                ", experienceYears: " + experienceYears + '\'' +
-                ", contactInfo: " + contactInfo + '\'' +
+        return "Doctor {" +
+                "ID: " + id +
+                ", Full Name: '" + fullName + '\'' +
+                ", Specialization: '" + specialization + '\'' +
+                ", Working Hours: '" + workingHours + '\'' +
+                ", Office: '" + office + '\'' +
+                ", Experience: " + experienceYears + " years" +
                 '}';
     }
 }
