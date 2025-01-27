@@ -1,55 +1,60 @@
 package models;
+import java.time.LocalDateTime;
 
 public class Appointment {
-    public int idDoctor;
-    public int idPatient;
-    public String data;
-    public String time;
+    private int id;
+    private int patientId;
+    private int doctorId;
+    private LocalDateTime appointmentDate;
+    private String notes;
 
-    public Appointment(int idDoctor, int idPatient, String data, String time) {
-        setIdDoctor(idDoctor);
-        setIdPatient(idPatient);
-        setData(data);
-        setTime(time);
+    public Appointment() {}
+
+    public Appointment(int id, int patientId, int doctorId, LocalDateTime appointmentDate, String notes) {
+        this.id = id;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.appointmentDate = appointmentDate;
+        this.notes = notes;
     }
 
-    public int getIdDoctor() {
-        return idDoctor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdDoctor(int idDoctor) {
-        this.idDoctor = idDoctor;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getIdPatient() {
-        return idPatient;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public void setIdPatient(int idPatient) {
-        this.idPatient = idPatient;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
-    public String getData() {
-        return data;
+    public int getDoctorId() {
+        return doctorId;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public String getTime() {
-        return time;
+    public LocalDateTime getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setAppointmentDate(LocalDateTime appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
+    public String getNotes() {
+        return notes;
+    }
 
-    @Override
-    public String toString() {
-        return "Appointment: " + "\n" +
-                "Doctor" + idDoctor + "\n" +
-                "Patien: " + idPatient;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
