@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public class Patient {
     private int id;
-    private String iin; // Individual Identification Number
+    private int iin; // Individual Identification Number
     private String fullName;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String gender;
     private String nationality;
     private String citizenship;
@@ -16,7 +16,7 @@ public class Patient {
 
     public Patient() {}
 
-    public Patient(int id, String iin, String fullName, LocalDate dateOfBirth, String gender,
+    public Patient(int id, int iin, String fullName, String dateOfBirth, String gender,
                    String nationality, String citizenship, String address, String bloodGroup, String rhesusFactor) {
         this.id = id;
         this.iin = iin;
@@ -38,11 +38,11 @@ public class Patient {
         this.id = id;
     }
 
-    public String getIin() {
+    public int getIin() {
         return iin;
     }
 
-    public void setIin(String iin) {
+    public void setIin(int iin) {
         this.iin = iin;
     }
 
@@ -54,11 +54,11 @@ public class Patient {
         this.fullName = fullName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
