@@ -23,7 +23,7 @@ public class PatientRepository implements IPatientRepository {
 
     @Override
     public boolean addPatient(Patient patient) {
-        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, adress, blood_Group, rhesus_Factor ) " +
+        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, address, blood_Group, rhesus_Factor ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -45,7 +45,7 @@ public class PatientRepository implements IPatientRepository {
         }
     }
 
-    @Override
+
     public Patient getPatientById(int id) {
         String sql = "SELECT * FROM patients WHERE id = ?";
         try (Connection connection = db.getConnection();
@@ -53,16 +53,17 @@ public class PatientRepository implements IPatientRepository {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                rs.getInt("id");
-                rs.getInt("iin");
-                rs.getInt("fullname");
-                rs.getString("date_of_birth");
-                rs.getInt("nationality");
-                rs.getInt("gender");
-                rs.getInt("citizenship");
-                rs.getInt("adress");
-                rs.getInt("blood_group");
-                rs.getInt("rhesus_factor");
+                return new Patient(
+                    rs.getInt("id"),
+                    rs.getInt("iin"),
+                    rs.getString("full_name"),
+                    rs.getString("date_of_birth"),
+                    rs.getString("nationality"),
+                    rs.getString("gender"),
+                    rs.getString("citizenship"),
+                    rs.getString("address"),
+                    rs.getString("blood_group"),
+                    rs.getString("rhesus_factor"));
             }
         } catch (Exception e) {
             System.out.println("Error retrieving patient by ID: " + e.getMessage());
@@ -86,7 +87,7 @@ public class PatientRepository implements IPatientRepository {
                         rs.getString("nationality"),
                         rs.getString("gender"),
                         rs.getString("citizenship"),
-                        rs.getString("adress"),
+                        rs.getString("address"),
                         rs.getString("blood_group"),
                         rs.getString("rhesus_factor")
 

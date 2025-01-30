@@ -20,6 +20,7 @@ public class PatientApplication {
             System.out.println("1. Add Patient");
             System.out.println("2. Get Patient by ID");
             System.out.println("3. List All Patients");
+            System.out.println("4. Appointment");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -29,6 +30,7 @@ public class PatientApplication {
                 case 1 -> addPatient();
                 case 2 -> getPatientById();
                 case 3 -> listAllPatients();
+                //case 4 -> makeAppointment();
                 case 0 -> {
                     System.out.println("Exiting...");
                     return;
@@ -77,26 +79,25 @@ public class PatientApplication {
     private void getPatientById() {
         System.out.println("\n--- Get Patient by ID ---");
         System.out.print("Enter Patient ID: ");
-        int id = scanner.nextInt();
+        int ids = scanner.nextInt();
         scanner.nextLine();
 
-        Patient response = controller.getPatientById(id);
-        System.out.println(response);
-//        if(response != null){
-//            System.out.println("Patient with this id:");
-//            System.out.println("ID: " + response.getId());
-//            System.out.println("IIN: " + response.getIin());
-//            System.out.println("Full Name: " + response.getFullName());
-//            System.out.println("Date of Birth: " + response.getDateOfBirth());
-//            System.out.println("Gender: " + response.getGender());
-//            System.out.println("Nationality: " + response.getNationality());
-//            System.out.println("Citizenship: " + response.getCitizenship());
-//            System.out.println("Adress: " + response.getAddress());
-//            System.out.println("Blood Group: " + response.getBloodGroup());
-//            System.out.println("Rhesus Factor: " + response.getRhesusFactor());
-//        } else{
-//            System.out.println("Patient with id " + id + " is not founded");
-//        }
+        Patient response = controller.getPatientById(ids);
+        if(response != null){
+            System.out.println("Patient with this id:");
+            System.out.println("ID: " + response.getId());
+            System.out.println("IIN: " + response.getIin());
+            System.out.println("Full Name: " + response.getFullName());
+            System.out.println("Date of Birth: " + response.getDateOfBirth());
+            System.out.println("Gender: " + response.getGender());
+            System.out.println("Nationality: " + response.getNationality());
+            System.out.println("Citizenship: " + response.getCitizenship());
+            System.out.println("Address: " + response.getAddress());
+            System.out.println("Blood Group: " + response.getBloodGroup());
+            System.out.println("Rhesus Factor: " + response.getRhesusFactor());
+        } else{
+            System.out.println("Patient with id " + ids + " is not founded");
+        }
 
     }
 

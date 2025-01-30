@@ -56,7 +56,6 @@ public class PostgresDB implements IDB {
         String connectionUrl = host + "/" + dbName;
         try {
             if(connection != null && !connection.isClosed()) {
-
                 return connection;
             }
             Class.forName("org.postgresql.Driver");

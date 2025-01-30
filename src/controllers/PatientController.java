@@ -1,11 +1,12 @@
 package controllers;
 
+import controllers.interfaces.IAppointmentController;
 import controllers.interfaces.IPatientController;
 import models.Patient;
 import repositories.interfaces.IPatientRepository;
 import java.util.List;
 
-public class PatientController implements IPatientController {
+public class PatientController implements IPatientController, IAppointmentController {
     private final IPatientRepository repository;
 
     public PatientController(IPatientRepository repository) {
