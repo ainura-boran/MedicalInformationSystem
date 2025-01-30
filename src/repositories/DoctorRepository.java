@@ -35,6 +35,7 @@ public class DoctorRepository implements IDoctorRepository {
             return false;
         }
     }
+
     @Override
     public Doctor getDoctorById(int id) {
         String query = "SELECT * FROM doctors WHERE id = ?";
@@ -79,3 +80,4 @@ public class DoctorRepository implements IDoctorRepository {
         }
         return doctors;
     }
+}
