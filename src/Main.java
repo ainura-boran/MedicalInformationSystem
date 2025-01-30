@@ -36,8 +36,11 @@ public class Main {
         PatientController patientController = new PatientController(patientRepository);
         PatientApplication patientApplication = new PatientApplication(patientController);
 
+        List<Doctor> doctors = doctorRepository.getAllDoctors();
+        List<Patient> patients = patientRepository.getAllPatients();
+
         AppointmentRepository appointmentRepository = new AppointmentRepository(db);
-        AppointmentController appointmentController = new AppointmentController(appointmentRepository, doctorRepository, patientRepository);
+        AppointmentController appointmentController = new AppointmentController(appointmentRepository, doctors, patients);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
