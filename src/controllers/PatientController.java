@@ -19,9 +19,8 @@ public class PatientController implements IPatientController {
     }
 
     @Override
-    public String getPatientById(int id) {
-        Patient patient = repository.getPatientById(id);
-        return (patient != null) ? patient.toString() : "Patient not found.";
+    public Patient getPatientById(int id) {
+        return repository.getPatientById(id);
     }
 
     @Override
