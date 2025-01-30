@@ -1,5 +1,6 @@
 package repositories;
 
+import data.interfaces.IDB;
 import models.Appointment;
 import repositories.interfaces.IAppointmentRepository;
 
@@ -7,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-class AppointmentRepository implements IAppointmentRepository {
+public class AppointmentRepository implements IAppointmentRepository {
     private List<Appointment> appointments = new ArrayList<>();
+
+    public AppointmentRepository(IDB database) {
+    }
 
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);

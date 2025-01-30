@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-class AppointmentController {
+public class AppointmentController {
     private IAppointmentRepository repository;
     private List<Doctor> doctors;
     private List<Patient> patients;
