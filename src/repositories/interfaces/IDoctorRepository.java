@@ -1,11 +1,13 @@
 package repositories.interfaces;
 
-import models.Patient;
+import models.Doctor;
 
 import java.util.List;
 
-public interface IPatientRepository {
-    boolean addPatient(Patient patient);
-    Patient getPatientById(int id);
-    List<Patient> getAllPatients();
+public interface IDoctorRepository {
+    boolean createDoctor(Doctor doctor);
+
+    Doctor getDoctorById(int id);
+
+    List<Doctor> getAllDoctors();
 }
