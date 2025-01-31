@@ -4,10 +4,7 @@ import data.interfaces.IDB;
 import models.Appointment;
 import repositories.interfaces.IAppointmentRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,7 @@ public class AppointmentRepository implements IAppointmentRepository {
 
     @Override
     public boolean createAppointment(Appointment appointment) {
-        String query = "INSERT INTO appointments (doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, appointment.getDoctorId());
@@ -39,7 +36,24 @@ public class AppointmentRepository implements IAppointmentRepository {
 
     @Override
     public void addAppointment(Appointment appointment) {
+        String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = db.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, appointment.getId());
+            stmt.setInt(2, appointment.getDoctorId());
+            stmt.setInt(3, appointment.getPatientId());
+            stmt.setObject(4, appointment.getDateTime());
+            stmt.setString(5, appointment.getStatus());
 
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Appointment successfully added to the database.");
+            } else {
+                System.out.println("Failed to add appointment.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error adding appointment: " + e.getMessage());
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package repositories;
 
 import application.PatientApplication;
-import dao.PatientDAO;
 import data.interfaces.IDB;
 import models.Doctor;
 import models.Patient;

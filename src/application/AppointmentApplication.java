@@ -25,45 +25,39 @@ public class AppointmentApplication {
         IAppointmentRepository repository = new AppointmentRepository(database);
         IDoctorRepository doctorRepository = new DoctorRepository(database);
         IPatientRepository patientRepository = new PatientRepository(database);
-        AppointmentController controller = new AppointmentController(repository, (List<Doctor>) doctorRepository, (List<Patient>) patientRepository);
-
         List<Doctor> doctors = doctorRepository.getAllDoctors();
         List<Patient> patients = patientRepository.getAllPatients();
 
-        if (doctors.isEmpty() || patients.isEmpty()) {
-            System.out.println("No doctors or patients available in the database.");
-            return;
+        AppointmentController controller = new AppointmentController(repository, doctors, patients);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Doctor ID: ");
+        int doctorId = scanner.nextInt();
+        System.out.print("Enter Patient ID: ");
+        int patientId = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter Appointment Date and Time (YYYY-MM-DDTHH:MM): ");
+        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine());
+
+        if (controller.scheduleAppointment(doctorId, patientId, dateTime)) {
+            System.out.println("Appointment scheduled successfully!");
+        } else {
+            System.out.println("Failed to schedule appointment. Doctor might not be available.");
         }
 
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter Doctor ID: ");
-            int doctorId = scanner.nextInt();
-            System.out.print("Enter Patient ID: ");
-            int patientId = scanner.nextInt();
-            scanner.nextLine();
-            System.out.print("Enter Appointment Date and Time (YYYY-MM-DDTHH:MM): ");
-            LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine());
 
-            if (controller.scheduleAppointment(doctorId, patientId, dateTime)) {
-                System.out.println("Appointment scheduled successfully!");
-            } else {
-                System.out.println("Failed to schedule appointment. Doctor might not be available.");
-            }
-
-
-            System.out.print("Enter Appointment ID to view details: ");
-            int appointmentId = scanner.nextInt();
-            Optional<Appointment> appointment = controller.getAppointmentById(appointmentId);
-            appointment.ifPresentOrElse(
-                    a -> {
-                        Doctor doctor = doctorRepository.getDoctorById(a.getDoctorId());
-                        Patient patient = patientRepository.getPatientById(a.getPatientId());
-                        System.out.println("Appointment Details:");
-                        System.out.println("Doctor: " + (doctor != null ? doctor.getFullName() : "Unknown"));
-                        System.out.println("Patient: " + (patient != null ? patient.getFullName() : "Unknown"));
-                        System.out.println("Date & Time: " + a.getDateTime());
-                    },
-                    () -> System.out.println("Appointment not found."));
-        }
+        System.out.print("Enter Appointment ID to view details: ");
+        int appointmentId = scanner.nextInt();
+        Optional<Appointment> appointment = controller.getAppointmentById(appointmentId);
+        appointment.ifPresentOrElse(
+                a -> {
+                    Doctor doctor = doctorRepository.getDoctorById(a.getDoctorId());
+                    Patient patient = patientRepository.getPatientById(a.getPatientId());
+                    System.out.println("Appointment Details:");
+                    System.out.println("Doctor: " + (doctor != null ? doctor.getFullName() : "Unknown"));
+                    System.out.println("Patient: " + (patient != null ? patient.getFullName() : "Unknown"));
+                    System.out.println("Date & Time: " + a.getDateTime());
+                },
+                () -> System.out.println("Appointment not found."));
     }
-
+}
