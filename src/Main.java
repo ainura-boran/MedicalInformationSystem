@@ -33,7 +33,7 @@ public class Main {
 
         DoctorApplication doctorApplication = new DoctorApplication(doctorController, appointmentController, patientRepository);
         PatientApplication patientApplication = new PatientApplication(patientController, appointmentController, doctorRepository);
-        AdminApplication adminApplication = new AdminApplication(doctorApplication, patientApplication, appointmentController, adminRepository);
+        AdminApplication adminApplication = new AdminApplication(doctorApplication, patientApplication, appointmentController, adminRepository, appointmentRepository);
 
         Scanner scanner = new Scanner(System.in);
 

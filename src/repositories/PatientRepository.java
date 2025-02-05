@@ -4,12 +4,11 @@ import data.interfaces.IDB;
 import models.Patient;
 import repositories.interfaces.IPatientRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PatientRepository implements IPatientRepository {
     private final IDB db;
@@ -72,7 +71,7 @@ public class PatientRepository implements IPatientRepository {
     public List<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM patients";
+            String sql = "SELECT id, full_name, date_of_birth, gender, nationality, citizenship, adress, blood_group, rhesus_factor FROM patients WHERE doctor_id = ?";
             Connection connection = db.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -98,9 +97,7 @@ public class PatientRepository implements IPatientRepository {
     }
     public List<Patient> getPatientsForDoctor(int doctorId) {
         List<Patient> patients = new ArrayList<>();
-        String query = "SELECT DISTINCT p.* FROM patients p " +
-                "JOIN appointments a ON p.id = a.patient_id " +
-                "WHERE a.doctor_id = ?";
+        String query = "SELECT id, iin, full_name, date_of_birth, gender, nationality, citizenship, adress, blood_group, rhesus_factor FROM patients WHERE id = ?";
 
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -125,6 +122,23 @@ public class PatientRepository implements IPatientRepository {
             System.out.println("Error retrieving patients: " + e.getMessage());
         }
         return patients;
+    }
+
+    public Map<Integer, String> getPatientNames() {
+        Map<Integer, String> patientNames = new HashMap<>();
+        String query = "SELECT id, full_name FROM patients";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                patientNames.put(rs.getInt("id"), rs.getString("full_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patientNames;
     }
 
 }

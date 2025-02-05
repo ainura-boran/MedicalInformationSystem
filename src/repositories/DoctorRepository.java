@@ -11,8 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 
 public class DoctorRepository implements IDoctorRepository {
@@ -203,7 +205,7 @@ public class DoctorRepository implements IDoctorRepository {
     }
 
     public Doctor getDoctorByUsername(String username) {
-        String query = "SELECT id, full_name, specialization, username, password FROM doctors WHERE username = ?";
+        String query = "SELECT id, full_name, specialization, working_hours, office, experience_years, username, password FROM doctors WHERE username = ?";
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -228,4 +230,22 @@ public class DoctorRepository implements IDoctorRepository {
         }
         return null;
     }
+
+    public Map<Integer, String> getDoctorNames() {
+        Map<Integer, String> doctorNames = new HashMap<>();
+        String query = "SELECT id, full_name FROM doctors";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                doctorNames.put(rs.getInt("id"), rs.getString("full_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return doctorNames;
+    }
+
 }

@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class AppointmentRepository implements IAppointmentRepository {
@@ -15,6 +16,40 @@ public class AppointmentRepository implements IAppointmentRepository {
 
     public AppointmentRepository(IDB db) {
         this.db = db;
+    }
+
+    public List<String> getDoctorSchedules() {
+        List<String> schedules = new ArrayList<>();
+        String query = "SELECT id, doctor_id, patient_id, date_time, status FROM appointments";
+
+        DoctorRepository doctorRepository = new DoctorRepository(db);
+        PatientRepository patientRepository = new PatientRepository(db);
+
+        Map<Integer, String> doctorNames = doctorRepository.getDoctorNames();
+        Map<Integer, String> patientNames = patientRepository.getPatientNames();
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int doctorId = rs.getInt("doctor_id");
+                int patientId = rs.getInt("patient_id");
+                String doctorName = doctorNames.getOrDefault(doctorId, "Unknown Doctor");
+                String patientName = patientNames.getOrDefault(patientId, "Unknown Patient");
+
+                String schedule = "Appointment ID: " + rs.getInt("id") +
+                        " | Doctor: " + doctorName +
+                        " | Patient: " + patientName +
+                        " | Date: " + rs.getTimestamp("date_time").toLocalDateTime() +
+                        " | Status: " + rs.getString("status");
+
+                schedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedules;
     }
 
     @Override
