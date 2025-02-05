@@ -1,8 +1,6 @@
 package repositories;
 
-import application.PatientApplication;
 import data.interfaces.IDB;
-import models.Doctor;
 import models.Patient;
 import repositories.interfaces.IPatientRepository;
 
@@ -22,7 +20,7 @@ public class PatientRepository implements IPatientRepository {
 
     @Override
     public boolean addPatient(Patient patient) {
-        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, adress, blood_Group, rhesus_Factor ) " +
+        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, address, blood_Group, rhesus_Factor ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -46,22 +44,24 @@ public class PatientRepository implements IPatientRepository {
 
     @Override
     public Patient getPatientById(int id) {
-        String sql = "SELECT * FROM patients WHERE id = ?";
+        String query = "SELECT * FROM patients WHERE id = ?";
         try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+             PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                rs.getInt("id");
-                rs.getInt("iin");
-                rs.getInt("fullname");
-                rs.getString("date_of_birth");
-                rs.getInt("nationality");
-                rs.getInt("gender");
-                rs.getInt("citizenship");
-                rs.getInt("adress");
-                rs.getInt("blood_group");
-                rs.getInt("rhesus_factor");
+                return new Patient(
+                        rs.getInt("id"),
+                        rs.getString("iin"),
+                        rs.getString("full_name"),
+                        rs.getString("date_of_birth"),
+                        rs.getString("nationality"),
+                        rs.getString("gender"),
+                        rs.getString("citizenship"),
+                        rs.getString("adress"),
+                        rs.getString("blood_group"),
+                        rs.getString("rhesus_factor")
+                );
             }
         } catch (Exception e) {
             System.out.println("Error retrieving patient by ID: " + e.getMessage());
@@ -95,6 +95,36 @@ public class PatientRepository implements IPatientRepository {
             System.out.println("Error retrieving patients: " + e.getMessage());
         }
         return patients;
-
     }
+    public List<Patient> getPatientsForDoctor(int doctorId) {
+        List<Patient> patients = new ArrayList<>();
+        String query = "SELECT DISTINCT p.* FROM patients p " +
+                "JOIN appointments a ON p.id = a.patient_id " +
+                "WHERE a.doctor_id = ?";
+
+        try (Connection connection = db.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, doctorId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                patients.add(new Patient(
+                        rs.getInt("id"),
+                        rs.getString("iin"),
+                        rs.getString("full_name"),
+                        rs.getString("date_of_birth"),
+                        rs.getString("gender"),
+                        rs.getString("nationality"),
+                        rs.getString("citizenship"),
+                        rs.getString("address"),
+                        rs.getString("blood_group"),
+                        rs.getString("rhesus_factor")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Error retrieving patients: " + e.getMessage());
+        }
+        return patients;
+    }
+
 }

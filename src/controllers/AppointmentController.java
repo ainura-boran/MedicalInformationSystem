@@ -36,4 +36,45 @@ public class AppointmentController {
     public Optional<Appointment> getAppointmentById(int id) {
         return repository.getAppointmentById(id);
     }
+
+    public void viewAppointmentsForDoctor(int doctorId) {
+        List<Appointment> appointments = repository.getAppointmentsForDoctor(doctorId);
+
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+        } else {
+            System.out.println("\n----- Appointments for Doctor ID: " + doctorId + " -----");
+            for (Appointment appointment : appointments) {
+                System.out.println("Patient ID: " + appointment.getPatientId() +
+                        " | Date: " + appointment.getDateTime() +
+                        " | Status: " + appointment.getStatus());
+            }
+        }
+    }
+
+    public void viewAllAppointments() {
+        List<Appointment> appointments = repository.getAllAppointments();
+
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+        } else {
+            System.out.println("----- All Appointments -----");
+            for (Appointment appointment : appointments) {
+                System.out.println("ID: " + appointment.getId() +
+                        " | Doctor ID: " + appointment.getDoctorId() +
+                        " | Patient ID: " + appointment.getPatientId() +
+                        " | Date: " + appointment.getDateTime() +
+                        " | Status: " + appointment.getStatus());
+            }
+        }
+    }
+
+    public int getAppointmentsCountForDoctorOnDate(int doctorId, LocalDateTime date) {
+        System.out.println("Checking appointments for Doctor ID: " + doctorId + " on " + date);
+
+        return (int) repository.getAllAppointments().stream()
+                .filter(a -> a.getDoctorId() == doctorId && a.getDate().toLocalDate().equals(date.toLocalDate()))
+                .count();
+
+    }
 }

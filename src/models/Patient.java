@@ -28,6 +28,9 @@ public class Patient {
         this.rhesusFactor = rhesusFactor;
     }
 
+    public Patient(int id) {
+    }
+
     public int getId() {
         return id;
     }
@@ -40,72 +43,36 @@ public class Patient {
         return iin;
     }
 
-    public void setIin(String iin) {
-        this.iin = iin;
-    }
-
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
     public String getCitizenship() {
         return citizenship;
-    }
-
-    public void setCitizenship(String citizenship) {
-        this.citizenship = citizenship;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getBloodGroup() {
         return bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
-
     public String getRhesusFactor() {
         return rhesusFactor;
-    }
-
-    public void setRhesusFactor(String rhesusFactor) {
-        this.rhesusFactor = rhesusFactor;
     }
 
     @Override

@@ -19,8 +19,7 @@ public class PatientController implements IPatientController {
     }
 
     public Patient getPatientById(int id) {
-        Patient patient = repository.getPatientById(id);
-        return patient;
+        return repository.getPatientById(id);
     }
 
     @Override

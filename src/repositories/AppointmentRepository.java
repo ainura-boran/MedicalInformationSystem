@@ -19,7 +19,7 @@ public class AppointmentRepository implements IAppointmentRepository {
 
     @Override
     public boolean createAppointment(Appointment appointment) {
-        String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, appointment.getDoctorId());
@@ -100,13 +100,27 @@ public class AppointmentRepository implements IAppointmentRepository {
         return appointments;
     }
 
-    @Override
-    public void updateAppointment(Appointment appointment) {
+    public List<Appointment> getAppointmentsForDoctor(int doctorId) {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT * FROM appointments WHERE doctor_id = ? ORDER BY date_time ASC";
 
-    }
+        try (Connection connection = db.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, doctorId);
+            ResultSet rs = stmt.executeQuery();
 
-    @Override
-    public void deleteAppointment(int id) {
-
+            while (rs.next()) {
+                appointments.add(new Appointment(
+                        rs.getInt("id"),
+                        rs.getInt("doctor_id"),
+                        rs.getInt("patient_id"),
+                        rs.getTimestamp("date_time").toLocalDateTime(),
+                        rs.getString("status")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Error retrieving appointments: " + e.getMessage());
+        }
+        return appointments;
     }
 }

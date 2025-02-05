@@ -11,22 +11,33 @@ public class Doctor {
     private String workingHours;
     private String office;
     private int experienceYears;
+    private String username;
+    private String password;
     private List<Appointment> appointments = new ArrayList<>();
-
 
     public Doctor() {}
 
-    public Doctor(int id, String fullName, String specialization, String workingHours, String office, int experienceYears) {
+    public Doctor(int id, String fullName, String specialization, String workingHours, String office, int experienceYears, String username, String password) {
         this.id = id;
         this.fullName = fullName;
         this.specialization = specialization;
         this.workingHours = workingHours;
         this.office = office;
         this.experienceYears = experienceYears;
+        this.username = username;
+        this.password = password;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setId(int id) {
@@ -37,40 +48,21 @@ public class Doctor {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getSpecialization() {
         return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
     }
 
     public String getWorkingHours() {
         return workingHours;
     }
 
-    public void setWorkingHours(String workingHours) {
-        this.workingHours = workingHours;
-    }
 
     public String getOffice() {
         return office;
     }
 
-    public void setOffice(String office) {
-        this.office = office;
-    }
-
     public int getExperienceYears() {
         return experienceYears;
-    }
-
-    public void setExperienceYears(int experienceYears) {
-        this.experienceYears = experienceYears;
     }
 
     @Override

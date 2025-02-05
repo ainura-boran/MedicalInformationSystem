@@ -13,6 +13,7 @@ import repositories.interfaces.IAppointmentRepository;
 import repositories.interfaces.IDoctorRepository;
 import repositories.interfaces.IPatientRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class AppointmentApplication {
         int patientId = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Enter Appointment Date and Time (YYYY-MM-DDTHH:MM): ");
-        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine());
+        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine().trim());
 
         if (controller.scheduleAppointment(doctorId, patientId, dateTime)) {
             System.out.println("Appointment scheduled successfully!");
