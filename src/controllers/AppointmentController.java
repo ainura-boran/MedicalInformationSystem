@@ -52,23 +52,6 @@ public class AppointmentController {
         }
     }
 
-    public void viewAllAppointments() {
-        List<Appointment> appointments = repository.getAllAppointments();
-
-        if (appointments.isEmpty()) {
-            System.out.println("No appointments found.");
-        } else {
-            System.out.println("----- All Appointments -----");
-            for (Appointment appointment : appointments) {
-                System.out.println("ID: " + appointment.getId() +
-                        " | Doctor ID: " + appointment.getDoctorId() +
-                        " | Patient ID: " + appointment.getPatientId() +
-                        " | Date: " + appointment.getDateTime() +
-                        " | Status: " + appointment.getStatus());
-            }
-        }
-    }
-
     public int getAppointmentsCountForDoctorOnDate(int doctorId, LocalDateTime date) {
         System.out.println("Checking appointments for Doctor ID: " + doctorId + " on " + date);
 

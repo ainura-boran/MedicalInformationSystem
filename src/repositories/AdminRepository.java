@@ -32,19 +32,5 @@ public class AdminRepository {
         }
         return null;
     }
-    public boolean registerAdmin(String username, String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        String query = "INSERT INTO admins (username, password_hash) VALUES (?, ?)";
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);
-            stmt.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error registering admin: " + e.getMessage());
-            return false;
-        }
-    }
 }
 

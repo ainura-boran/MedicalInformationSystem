@@ -56,7 +56,6 @@ public class Doctor {
         return workingHours;
     }
 
-
     public String getOffice() {
         return office;
     }

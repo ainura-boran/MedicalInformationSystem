@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 
@@ -46,23 +45,6 @@ public class DoctorRepository implements IDoctorRepository {
             System.out.println("Error retrieving appointments: " + e.getMessage());
         }
         return appointments;
-    }
-
-    public boolean createDoctor(Doctor doctor) {
-        String query = "INSERT INTO doctors (full_name, specialization, working_hours, office, experience_years) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, doctor.getFullName());
-            stmt.setString(2, doctor.getSpecialization());
-            stmt.setString(3, doctor.getWorkingHours());
-            stmt.setString(4, doctor.getOffice());
-            stmt.setInt(5, doctor.getExperienceYears());
-            stmt.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error creating doctor: " + e.getMessage());
-            return false;
-        }
     }
 
     public boolean registerDoctor(String fullName, String specialization, String workingHours,

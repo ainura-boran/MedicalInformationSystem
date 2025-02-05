@@ -2,19 +2,13 @@ package application;
 
 import controllers.AppointmentController;
 import controllers.DoctorController;
-import models.Appointment;
 import models.Doctor;
-import models.Patient;
-import repositories.AppointmentRepository;
-import repositories.DoctorRepository;
 import repositories.PatientRepository;
-
 import java.util.List;
 import java.util.Scanner;
 
 public class DoctorApplication {
     private final DoctorController doctorController;
-    private final Scanner scanner = new Scanner(System.in);;
     private final AppointmentController appointmentController;
     private final PatientRepository patientRepository;
 

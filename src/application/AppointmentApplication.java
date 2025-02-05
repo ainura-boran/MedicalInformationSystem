@@ -12,8 +12,6 @@ import repositories.PatientRepository;
 import repositories.interfaces.IAppointmentRepository;
 import repositories.interfaces.IDoctorRepository;
 import repositories.interfaces.IPatientRepository;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

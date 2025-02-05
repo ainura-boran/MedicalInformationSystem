@@ -53,23 +53,6 @@ public class AppointmentRepository implements IAppointmentRepository {
     }
 
     @Override
-    public boolean createAppointment(Appointment appointment) {
-        String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, appointment.getDoctorId());
-            stmt.setInt(2, appointment.getPatientId());
-            stmt.setObject(3, appointment.getDateTime());
-            stmt.setString(4, appointment.getStatus());
-            stmt.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error creating appointment: " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
     public void addAppointment(Appointment appointment) {
         String query = "INSERT INTO appointments (id, doctor_id, patient_id, date_time, status) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
