@@ -5,7 +5,7 @@ import models.Doctor;
 import java.util.List;
 
 public interface IDoctorController {
-    boolean createDoctor(Doctor doctor);
-    Doctor getDoctorById(int id);
+    String createDoctor(Doctor doctor);
+    String getDoctorById(int id);
     List<Doctor> getAllDoctors();
 }
