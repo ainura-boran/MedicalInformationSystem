@@ -12,6 +12,7 @@ import repositories.PatientRepository;
 import java.util.Scanner;
 
 public class HospitalApplication {
+    PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "0000", "medicalInformationSystem");
 
 
     DoctorRepository doctorRepository = new DoctorRepository(db);
@@ -29,7 +30,7 @@ public class HospitalApplication {
     Scanner scanner = new Scanner(System.in);
 
 
-    private void start() {
+    public void start() {
         while (true) {
             mainmenu();
             try {
@@ -73,4 +74,4 @@ public class HospitalApplication {
 
 
 
-}
+
