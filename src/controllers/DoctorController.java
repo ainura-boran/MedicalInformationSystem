@@ -1,24 +1,37 @@
 package controllers;
 
 import models.Doctor;
+import org.mindrot.jbcrypt.BCrypt;
+import repositories.DoctorRepository;
 import repositories.interfaces.IDoctorRepository;
+import java.util.List;
+
 
 public class DoctorController {
-    private final IDoctorRepository repository;
+    private final IDoctorRepository doctorRepository;
 
-    public DoctorController(IDoctorRepository repository) {
-        this.repository = repository;
+    public DoctorController(IDoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
     }
 
-    public boolean createDoctor(Doctor doctor) {
-        return repository.createDoctor(doctor);
+    public Doctor authenticateDoctor(String username, String password) {
+        Doctor doctor = doctorRepository.getDoctorByUsername(username);
+        if (doctor != null && BCrypt.checkpw(password, doctor.getPassword())) {
+            return doctor;
+        }
+        return null;
     }
 
+    public boolean registerDoctor(String fullName, String specialization, String workingHours,
+                                  String office, int experienceYears, String username, String password) {
+        return doctorRepository.registerDoctor(fullName, specialization, workingHours, office, experienceYears, username, password);
+    }
     public Doctor getDoctorById(int id) {
-        return repository.getDoctorById(id);
+        return doctorRepository.getDoctorById(id);
     }
 
-    public java.util.List<Doctor> getAllDoctors() {
-        return repository.getAllDoctors();
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.getAllDoctors();
     }
+
 }

@@ -7,10 +7,10 @@ import repositories.interfaces.IPatientRepository;
 import java.util.List;
 
 public class PatientController implements IPatientController {
-    private final IPatientRepository repository;
+    private static IPatientRepository repository;
 
     public PatientController(IPatientRepository repository) {
-        this.repository = repository;
+        PatientController.repository = repository;
     }
 
     @Override
@@ -18,7 +18,6 @@ public class PatientController implements IPatientController {
         return repository.addPatient(patient);
     }
 
-    @Override
     public Patient getPatientById(int id) {
         return repository.getPatientById(id);
     }
