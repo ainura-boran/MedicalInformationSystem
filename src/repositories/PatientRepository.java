@@ -19,7 +19,7 @@ public class PatientRepository implements IPatientRepository {
 
     @Override
     public boolean addPatient(Patient patient) {
-        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, address, blood_Group, rhesus_Factor ) " +
+        String sql = "INSERT INTO patients (iin, full_name, date_of_birth, nationality, gender, citizenship, address, blood_group, rhesus_factor ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
