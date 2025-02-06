@@ -1,10 +1,8 @@
 package models;
 
-import java.time.LocalDate;
-
 public class Patient {
     private int id;
-    private int iin; // Individual Identification Number
+    private String iin; // Individual Identification Number
     private String fullName;
     private String dateOfBirth;
     private String gender;
@@ -16,7 +14,7 @@ public class Patient {
 
     public Patient() {}
 
-    public Patient(int id, int iin, String fullName, String dateOfBirth, String gender,
+    public Patient(int id, String iin, String fullName, String dateOfBirth, String gender,
                    String nationality, String citizenship, String address, String bloodGroup, String rhesusFactor) {
         this.id = id;
         this.iin = iin;
@@ -30,6 +28,9 @@ public class Patient {
         this.rhesusFactor = rhesusFactor;
     }
 
+    public Patient(int id) {
+    }
+
     public int getId() {
         return id;
     }
@@ -38,76 +39,40 @@ public class Patient {
         this.id = id;
     }
 
-    public int getIin() {
+    public String getIin() {
         return iin;
-    }
-
-    public void setIin(int iin) {
-        this.iin = iin;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getDateOfBirth() {
         return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getNationality() {
         return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
     }
 
     public String getCitizenship() {
         return citizenship;
     }
 
-    public void setCitizenship(String citizenship) {
-        this.citizenship = citizenship;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getBloodGroup() {
         return bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
-
     public String getRhesusFactor() {
         return rhesusFactor;
-    }
-
-    public void setRhesusFactor(String rhesusFactor) {
-        this.rhesusFactor = rhesusFactor;
     }
 
     @Override

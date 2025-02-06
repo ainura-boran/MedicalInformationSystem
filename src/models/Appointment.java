@@ -1,21 +1,20 @@
 package models;
+
 import java.time.LocalDateTime;
 
 public class Appointment {
     private int id;
-    private int patientId;
     private int doctorId;
-    private LocalDateTime appointmentDate;
-    private String notes;
+    private int patientId;
+    private LocalDateTime dateTime;
+    private String status;
 
-    public Appointment() {}
-
-    public Appointment(int id, int patientId, int doctorId, LocalDateTime appointmentDate, String notes) {
+    public Appointment(int id, int doctorId, int patientId, LocalDateTime dateTime, String status) {
         this.id = id;
-        this.patientId = patientId;
         this.doctorId = doctorId;
-        this.appointmentDate = appointmentDate;
-        this.notes = notes;
+        this.patientId = patientId;
+        this.dateTime = dateTime;
+        this.status = status;
     }
 
     public int getId() {
@@ -26,35 +25,24 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
     public int getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
+    public String getStatus() {
+        return status;
     }
 
-    public String getNotes() {
-        return notes;
+    public LocalDateTime getDate() {
+        return dateTime;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }
