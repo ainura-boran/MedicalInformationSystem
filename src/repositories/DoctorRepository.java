@@ -3,7 +3,6 @@ package repositories;
 import data.interfaces.IDB;
 import models.Appointment;
 import models.Doctor;
-import org.mindrot.jbcrypt.BCrypt;
 import repositories.interfaces.IDoctorRepository;
 
 import java.sql.Connection;
@@ -117,32 +116,6 @@ public class DoctorRepository implements IDoctorRepository {
         return doctors;
     }
 
-    public Doctor authenticateDoctor(String username, String password) {
-        String query = "SELECT * FROM doctors WHERE username = ? AND password = ?";
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return new Doctor(
-                        rs.getInt("id"),
-                        rs.getString("full_name"),
-                        rs.getString("specialization"),
-                        rs.getString("working_hours"),
-                        rs.getString("office"),
-                        rs.getInt("experience_years"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
-            }
-        } catch (Exception e) {
-            System.out.println("Error authenticating doctor: " + e.getMessage());
-        }
-        return null;
-    }
-
     public List<String> getAllSpecializations() {
         List<String> specializations = new ArrayList<>();
         String query = "SELECT DISTINCT specialization FROM doctors";
@@ -229,5 +202,4 @@ public class DoctorRepository implements IDoctorRepository {
         }
         return doctorNames;
     }
-
 }

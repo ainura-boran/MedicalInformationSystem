@@ -38,7 +38,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("-----Who are you?-----");
+            System.out.println("-----Medical Information System-----");
             System.out.println("1. Doctor");
             System.out.println("2. Patient");
             System.out.println("3. Administrator");

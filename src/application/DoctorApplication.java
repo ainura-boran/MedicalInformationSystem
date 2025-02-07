@@ -5,6 +5,7 @@ import controllers.DoctorController;
 import models.Doctor;
 import repositories.PatientRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class DoctorApplication {
@@ -93,15 +94,14 @@ public class DoctorApplication {
     }
 
     public void getDoctorById(int id) {
-        Doctor doctor = doctorController.getDoctorById(id);
-        if (doctor != null) {
+        Optional<Doctor> doctorOptional = doctorController.getDoctorById(id);
+        doctorOptional.ifPresentOrElse(doctor -> {
             System.out.println("Doctor ID: " + doctor.getId());
             System.out.println("Full Name: " + doctor.getFullName());
             System.out.println("Specialization: " + doctor.getSpecialization());
-        } else {
-            System.out.println("Doctor not found.");
-        }
+        }, () -> System.out.println("Doctor not found."));
     }
+
 
     public void listAllDoctors() {
         List<Doctor> doctors = doctorController.getAllDoctors();
