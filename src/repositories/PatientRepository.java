@@ -19,7 +19,7 @@ public class PatientRepository implements IPatientRepository {
 
     @Override
     public boolean addPatient(Patient patient) {
-        String sql = "INSERT INTO patients (iin, full_name, date_of_birth, nationality, gender, citizenship, address, blood_group, rhesus_factor ) " +
+        String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, address, blood_Group, rhesus_Factor ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -57,7 +57,7 @@ public class PatientRepository implements IPatientRepository {
                         rs.getString("nationality"),
                         rs.getString("gender"),
                         rs.getString("citizenship"),
-                        rs.getString("adress"),
+                        rs.getString("address"),
                         rs.getString("blood_group"),
                         rs.getString("rhesus_factor")
                 );
@@ -71,7 +71,7 @@ public class PatientRepository implements IPatientRepository {
     public List<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
         try {
-            String sql = "SELECT id, full_name, date_of_birth, gender, nationality, citizenship, adress, blood_group, rhesus_factor FROM patients WHERE doctor_id = ?";
+            String sql = "SELECT * FROM patients";
             Connection connection = db.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -84,7 +84,7 @@ public class PatientRepository implements IPatientRepository {
                         rs.getString("nationality"),
                         rs.getString("gender"),
                         rs.getString("citizenship"),
-                        rs.getString("adress"),
+                        rs.getString("address"),
                         rs.getString("blood_group"),
                         rs.getString("rhesus_factor")
 
@@ -97,7 +97,7 @@ public class PatientRepository implements IPatientRepository {
     }
     public List<Patient> getPatientsForDoctor(int doctorId) {
         List<Patient> patients = new ArrayList<>();
-        String query = "SELECT id, iin, full_name, date_of_birth, gender, nationality, citizenship, adress, blood_group, rhesus_factor FROM patients WHERE id = ?";
+        String query = "SELECT id, iin, full_name, date_of_birth, gender, nationality, citizenship, address, blood_group, rhesus_factor FROM patients WHERE id = ?";
 
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -140,5 +140,4 @@ public class PatientRepository implements IPatientRepository {
         }
         return patientNames;
     }
-
 }
