@@ -1,4 +1,5 @@
 package application;
+
 import controllers.AppointmentController;
 import controllers.PatientController;
 import models.Doctor;
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class PatientApplication {
     private final PatientController controller;
@@ -78,13 +78,11 @@ public class PatientApplication {
 
         Patient patient = new Patient(1, iin, fullName, dateOfBirth, gender, nationality, citizenship, address, bloodGroup, rhesusFactor);
 
-        boolean success = controller.addPatient(patient);
-        System.out.println(success ? "Patient added successfully!" : "Failed to add patient.");
+        System.out.println(controller.addPatient(patient) ? "Patient added successfully!" : "Failed to add patient.");
     }
 
     private void bookAppointment() {
         System.out.println("\n--- Book an Appointment ---");
-
         System.out.print("Enter Patient ID: ");
         int patientId = scanner.nextInt();
         scanner.nextLine();
@@ -96,9 +94,7 @@ public class PatientApplication {
         }
 
         System.out.println("\n--- Select Specialization ---");
-        for (int i = 0; i < specializations.size(); i++) {
-            System.out.println((i + 1) + ". " + specializations.get(i));
-        }
+        specializations.forEach(spec -> System.out.println((specializations.indexOf(spec) + 1) + ". " + spec));
 
         System.out.print("Enter specialization number: ");
         int specializationChoice = scanner.nextInt();
@@ -117,12 +113,9 @@ public class PatientApplication {
         }
 
         System.out.println("\n--- Available Doctors ---");
-        for (int i = 0; i < availableDoctors.size(); i++) {
-            Doctor doctor = availableDoctors.get(i);
-            System.out.println((i + 1) + ". " + doctor.getFullName() +
-                    " | Experience: " + doctor.getExperienceYears() + " years" +
-                    " | Working Hours: " + doctor.getWorkingHours());
-        }
+        availableDoctors.forEach(doctor -> System.out.println((availableDoctors.indexOf(doctor) + 1) + ". " +
+                doctor.getFullName() + " | Experience: " + doctor.getExperienceYears() + " years" +
+                " | Working Hours: " + doctor.getWorkingHours()));
 
         System.out.print("Enter doctor number: ");
         int doctorChoice = scanner.nextInt();
@@ -138,28 +131,19 @@ public class PatientApplication {
         LocalDate date = LocalDate.parse(scanner.nextLine().trim());
 
         System.out.println("Doctor's available working hours: " + selectedDoctor.getWorkingHours());
-
         System.out.print("Enter Appointment Time (HH:MM, 24-hour format): ");
-        String timeInput = scanner.nextLine().trim();
-        LocalTime time = LocalTime.parse(timeInput);
+        LocalTime time = LocalTime.parse(scanner.nextLine().trim());
 
         LocalDateTime appointmentDateTime = LocalDateTime.of(date, time);
-        boolean success = appointmentController.scheduleAppointment(selectedDoctor.getId(), patientId, appointmentDateTime);
-
-        System.out.println(success ? "Appointment scheduled successfully!" : "Failed to schedule appointment. Doctor might not be available.");
+        System.out.println(appointmentController.scheduleAppointment(selectedDoctor.getId(), patientId, appointmentDateTime) ?
+                "Appointment scheduled successfully!" : "Failed to schedule appointment. Doctor might not be available.");
     }
 
     public void getPatientById(int id) {
         Patient patient = controller.getPatientById(id);
-        if (patient != null) {
-            System.out.println("Patient ID: " + patient.getId());
-            System.out.println("Full Name: " + patient.getFullName());
-            System.out.println("IIN: " + patient.getIin());
-            System.out.println("Date of Birth: " + patient.getDateOfBirth());
-            System.out.println("Gender: " + patient.getGender());
-        } else {
-            System.out.println("Patient not found.");
-        }
+        System.out.println((patient != null) ? ("Patient ID: " + patient.getId() + "\nFull Name: " + patient.getFullName() +
+                "\nIIN: " + patient.getIin() + "\nDate of Birth: " + patient.getDateOfBirth() + "\nGender: " + patient.getGender())
+                : "Patient not found.");
     }
 
     public void listAllPatients() {
@@ -168,9 +152,7 @@ public class PatientApplication {
             System.out.println("No patients found.");
         } else {
             System.out.println("----- Patients -----");
-            for (Patient patient : patients) {
-                System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName());
-            }
+            patients.forEach(patient -> System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName()));
         }
     }
 }

@@ -28,8 +28,7 @@ public class Patient {
         this.rhesusFactor = rhesusFactor;
     }
 
-    public Patient(int id) {
-    }
+    public Patient(int id) {}
 
     public int getId() {
         return id;
