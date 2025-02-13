@@ -31,10 +31,7 @@ public class AppointmentApplication {
 
         Scanner scanner = new Scanner(System.in);
 
-        //Validate Doctor ID
         int doctorId = getValidatedId(scanner, "Enter Doctor ID: ");
-
-        //Validate Patient ID
         int patientId = getValidatedId(scanner, "Enter Patient ID: ");
 
         System.out.print("Enter Appointment Date and Time (YYYY-MM-DDTHH:MM): ");
@@ -42,7 +39,6 @@ public class AppointmentApplication {
         try {
             dateTime = LocalDateTime.parse(scanner.nextLine().trim());
 
-            //Date Validation
             if (dateTime.isBefore(LocalDateTime.now())) {
                 System.out.println("The date you entered is in the past. Please enter a future date.");
                 return;

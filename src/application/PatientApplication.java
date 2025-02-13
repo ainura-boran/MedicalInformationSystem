@@ -85,9 +85,7 @@ public class PatientApplication {
     private void bookAppointment() {
         System.out.println("\n--- Book an Appointment ---");
 
-        System.out.print("Enter Patient ID: ");
-        int patientId = scanner.nextInt();
-        scanner.nextLine();
+        int patientId = getValidatedId("Enter Patient ID: ");
 
         List<String> specializations = doctorRepository.getAllSpecializations();
         if (specializations.isEmpty()) {
@@ -100,14 +98,7 @@ public class PatientApplication {
             System.out.println((i + 1) + ". " + specializations.get(i));
         }
 
-        System.out.print("Enter specialization number: ");
-        int specializationChoice = scanner.nextInt();
-        scanner.nextLine();
-
-        if (specializationChoice < 1 || specializationChoice > specializations.size()) {
-            System.out.println("Invalid choice. Please try again.");
-            return;
-        }
+        int specializationChoice = getValidatedChoice("Enter specialization number: ", 1, specializations.size());
         String selectedSpecialization = specializations.get(specializationChoice - 1);
 
         List<Doctor> availableDoctors = doctorRepository.getDoctorsBySpecialization(selectedSpecialization);
@@ -124,24 +115,37 @@ public class PatientApplication {
                     " | Working Hours: " + doctor.getWorkingHours());
         }
 
-        System.out.print("Enter doctor number: ");
-        int doctorChoice = scanner.nextInt();
-        scanner.nextLine();
-
-        if (doctorChoice < 1 || doctorChoice > availableDoctors.size()) {
-            System.out.println("Invalid choice. Please try again.");
-            return;
-        }
+        int doctorChoice = getValidatedChoice("Enter doctor number: ", 1, availableDoctors.size());
         Doctor selectedDoctor = availableDoctors.get(doctorChoice - 1);
 
-        System.out.print("Enter Appointment Date (YYYY-MM-DD): ");
-        LocalDate date = LocalDate.parse(scanner.nextLine().trim());
+        LocalDate date;
+        while (true) {
+            try {
+                System.out.print("Enter Appointment Date (YYYY-MM-DD): ");
+                date = LocalDate.parse(scanner.nextLine().trim());
+
+                if (date.isBefore(LocalDate.now())) {
+                    System.out.println("The date you entered is in the past. Please enter a future date.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please enter the date in the format YYYY-MM-DD.");
+            }
+        }
 
         System.out.println("Doctor's available working hours: " + selectedDoctor.getWorkingHours());
 
-        System.out.print("Enter Appointment Time (HH:MM, 24-hour format): ");
-        String timeInput = scanner.nextLine().trim();
-        LocalTime time = LocalTime.parse(timeInput);
+        LocalTime time;
+        while (true) {
+            try {
+                System.out.print("Enter Appointment Time (HH:MM, 24-hour format): ");
+                time = LocalTime.parse(scanner.nextLine().trim());
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid time format. Please enter the time in the format HH:MM.");
+            }
+        }
 
         LocalDateTime appointmentDateTime = LocalDateTime.of(date, time);
         boolean success = appointmentController.scheduleAppointment(selectedDoctor.getId(), patientId, appointmentDateTime);
@@ -173,4 +177,43 @@ public class PatientApplication {
             }
         }
     }
+
+    private int getValidatedId(String prompt) {
+        int id;
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                id = Integer.parseInt(input);
+                if (id <= 0) {
+                    System.out.println("ID must be a positive number. Please try again.");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric ID.");
+            }
+        }
+        return id;
+    }
+
+    private int getValidatedChoice(String prompt, int min, int max) {
+        int choice;
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                choice = Integer.parseInt(input);
+                if (choice < min || choice > max) {
+                    System.out.println("Invalid choice. Please select a number between " + min + " and " + max + ".");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+            }
+        }
+        return choice;
+    }
+
 }
