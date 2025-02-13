@@ -22,7 +22,6 @@ public class Main {
 
         PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "12345", "hospital");
 
-
         Scanner scanner = new Scanner(System.in);
         HospitalApplication app = new HospitalApplication();
         app.start();
