@@ -36,7 +36,6 @@ public class PatientRepository implements IPatientRepository {
             return true;
         } catch (Exception e) {
             System.out.println("Error creating patient: " + e.getMessage());
-            System.exit(1);
             return false;
         }
     }
@@ -57,7 +56,7 @@ public class PatientRepository implements IPatientRepository {
                         rs.getString("nationality"),
                         rs.getString("gender"),
                         rs.getString("citizenship"),
-                        rs.getString("adress"),
+                        rs.getString("address"),
                         rs.getString("blood_group"),
                         rs.getString("rhesus_factor")
                 );
