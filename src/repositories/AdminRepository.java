@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import data.interfaces.IDB;
+import factory.AdminFactory;
 import models.Admin;
 import org.mindrot.jbcrypt.BCrypt;
+
 public class AdminRepository {
     private final IDB db;
+    private final AdminFactory adminFactory = new AdminFactory();
 
     public AdminRepository(IDB db) {
         this.db = db;
@@ -27,17 +29,11 @@ public class AdminRepository {
                 String storedHash = rs.getString("password_hash");
 
                 if (BCrypt.checkpw(password, storedHash)) {
-                    return new Admin.Builder()
-                            .setId(rs.getInt("id"))
-                            .setUsername(rs.getString("username"))
-                            .setPasswordHash(storedHash)
-                            .build();
+                    return adminFactory.create(rs);
                 }
             }
         } catch (SQLException e) {
             System.err.println("Database error during admin authentication: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
         }
         return null;
     }
