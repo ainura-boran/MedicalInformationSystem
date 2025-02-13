@@ -19,8 +19,7 @@ import java.util.Scanner;
 
 public class AppointmentApplication {
     public static void main(String[] args) {
-        IDB database = new PostgresDB("jdbc:postgresql://localhost:5432", "postgresdb",
-                "0000", "medicalInformationSystem");
+        IDB database = new PostgresDB("jdbc:postgresql://localhost:5432", "postgresdb", "12345", "hospital");
 
         IAppointmentRepository repository = new AppointmentRepository(database);
         IDoctorRepository doctorRepository = new DoctorRepository(database);
@@ -31,13 +30,23 @@ public class AppointmentApplication {
         AppointmentController controller = new AppointmentController(repository, doctors, patients);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Doctor ID: ");
-        int doctorId = scanner.nextInt();
-        System.out.print("Enter Patient ID: ");
-        int patientId = scanner.nextInt();
-        scanner.nextLine();
+
+        int doctorId = getValidatedId(scanner, "Enter Doctor ID: ");
+        int patientId = getValidatedId(scanner, "Enter Patient ID: ");
+
         System.out.print("Enter Appointment Date and Time (YYYY-MM-DDTHH:MM): ");
-        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine().trim());
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(scanner.nextLine().trim());
+
+            if (dateTime.isBefore(LocalDateTime.now())) {
+                System.out.println("The date you entered is in the past. Please enter a future date.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please enter the date in the format YYYY-MM-DDTHH:MM.");
+            return;
+        }
 
         if (controller.scheduleAppointment(doctorId, patientId, dateTime)) {
             System.out.println("Appointment scheduled successfully!");
@@ -45,9 +54,7 @@ public class AppointmentApplication {
             System.out.println("Failed to schedule appointment. Doctor might not be available.");
         }
 
-
-        System.out.print("Enter Appointment ID to view details: ");
-        int appointmentId = scanner.nextInt();
+        int appointmentId = getValidatedId(scanner, "Enter Appointment ID to view details: ");
         Optional<Appointment> appointment = controller.getAppointmentById(appointmentId);
         appointment.ifPresentOrElse(
                 a -> {
@@ -59,5 +66,24 @@ public class AppointmentApplication {
                     System.out.println("Date & Time: " + a.getDateTime());
                 },
                 () -> System.out.println("Appointment not found."));
+    }
+
+    private static int getValidatedId(Scanner scanner, String prompt) {
+        int id;
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                id = Integer.parseInt(input);
+                if (id <= 0) {
+                    System.out.println("ID must be a positive number. Please try again.");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric ID.");
+            }
+        }
+        return id;
     }
 }
