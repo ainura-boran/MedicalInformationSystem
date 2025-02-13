@@ -1,26 +1,13 @@
-
 package models;
 
-public class Admin {
-    private int id;
-    private String username;
-    private String passwordHash;
+public class Admin extends User {
 
-    public Admin(int id, String username, String passwordHash) {
-        this.id = id;
-        this.username = username;
-        this.passwordHash = passwordHash;
+    public Admin(int id, String fullName, String username, String passwordHash) {
+        super(id, fullName, username, passwordHash);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
+    @Override
+    public String getRole() {
+        return "Admin";
     }
 }
