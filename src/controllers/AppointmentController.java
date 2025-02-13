@@ -20,7 +20,6 @@ public class AppointmentController {
         this.patients = patients;
     }
 
-
     public boolean scheduleAppointment(int doctorId, int patientId, LocalDateTime dateTime) {
         Doctor doctor = doctors.stream().filter(d -> d.getId() == doctorId).findFirst().orElse(null);
         Patient patient = patients.stream().filter(p -> p.getId() == patientId).findFirst().orElse(null);
