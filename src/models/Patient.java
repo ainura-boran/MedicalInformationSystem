@@ -1,9 +1,7 @@
 package models;
 
-public class Patient {
-    private int id;
-    private String iin; // Individual Identification Number
-    private String fullName;
+public class Patient extends User {
+    private String iin;
     private String dateOfBirth;
     private String gender;
     private String nationality;
@@ -12,13 +10,11 @@ public class Patient {
     private String bloodGroup;
     private String rhesusFactor;
 
-    public Patient() {}
-
-    public Patient(int id, String iin, String fullName, String dateOfBirth, String gender,
-                   String nationality, String citizenship, String address, String bloodGroup, String rhesusFactor) {
-        this.id = id;
+    public Patient(int id, String fullName, String username, String passwordHash,
+                   String iin, String dateOfBirth, String gender, String nationality,
+                   String citizenship, String address, String bloodGroup, String rhesusFactor) {
+        super(id, fullName, username, passwordHash);
         this.iin = iin;
-        this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.nationality = nationality;
@@ -28,22 +24,13 @@ public class Patient {
         this.rhesusFactor = rhesusFactor;
     }
 
-    public Patient(int id) {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String getRole() {
+        return "Patient";
     }
 
     public String getIin() {
         return iin;
-    }
-
-    public String getFullName() {
-        return fullName;
     }
 
     public String getDateOfBirth() {
@@ -76,17 +63,6 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient {" +
-                "ID=" + id +
-                ", IIN='" + iin + '\'' +
-                ", Full Name='" + fullName + '\'' +
-                ", Date of Birth=" + dateOfBirth +
-                ", Gender='" + gender + '\'' +
-                ", Nationality='" + nationality + '\'' +
-                ", Citizenship='" + citizenship + '\'' +
-                ", Address='" + address + '\'' +
-                ", Blood Group='" + bloodGroup + '\'' +
-                ", Rhesus Factor='" + rhesusFactor + '\'' +
-                '}';
+        return super.toString() + " { IIN: " + iin + ", Date of Birth: " + dateOfBirth + " }";
     }
 }
