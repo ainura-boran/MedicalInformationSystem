@@ -10,7 +10,6 @@ import repositories.AppointmentRepository;
 import repositories.DoctorRepository;
 import repositories.PatientRepository;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("The Medical System manages patient records, doctor profiles, and appointment scheduling.");
@@ -20,7 +19,7 @@ public class Main {
         System.out.println("Admins to view all data.");
         System.out.println();
 
-        PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "0000", "medicalInformationSystem");
+        PostgresDB db = PostgresDB.getInstance("jdbc:postgresql://localhost:5432", "postgres", "0000", "medicalInformationSystem");
 
         DoctorRepository doctorRepository = new DoctorRepository(db);
         PatientRepository patientRepository = new PatientRepository(db);
