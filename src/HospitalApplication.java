@@ -12,7 +12,8 @@ import repositories.PatientRepository;
 import java.util.Scanner;
 
 public class HospitalApplication {
-    PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "12345", "hospital");
+    PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres",
+            "12345", "hospital");
 
     DoctorRepository doctorRepository = new DoctorRepository(db);
     PatientRepository patientRepository = new PatientRepository(db);
