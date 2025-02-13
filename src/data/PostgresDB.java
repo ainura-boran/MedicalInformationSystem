@@ -4,6 +4,7 @@ import data.interfaces.IDB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class PostgresDB implements IDB {
     private String host;
     private String username;
