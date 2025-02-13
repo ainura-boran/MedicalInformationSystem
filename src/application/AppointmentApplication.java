@@ -19,7 +19,8 @@ import java.util.Scanner;
 
 public class AppointmentApplication {
     public static void main(String[] args) {
-        IDB database = new PostgresDB("jdbc:postgresql://localhost:5432", "postgresdb", "0000", "medicalInformationSystem");
+        IDB database = new PostgresDB("jdbc:postgresql://localhost:5432", "postgresdb",
+                "0000", "medicalInformationSystem");
 
         IAppointmentRepository repository = new AppointmentRepository(database);
         IDoctorRepository doctorRepository = new DoctorRepository(database);
