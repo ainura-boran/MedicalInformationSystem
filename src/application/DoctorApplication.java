@@ -1,16 +1,17 @@
 package application;
-
-import controllers.AppointmentController;
-import controllers.DoctorController;
-import models.Doctor;
-import repositories.PatientRepository;
-import java.util.List;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Optional;
 
+import controllers.DoctorController;
+import controllers.AppointmentController;
+import repositories.PatientRepository;
+import models.Doctor;
 public class DoctorApplication {
     private final DoctorController doctorController;
     private final AppointmentController appointmentController;
     private final PatientRepository patientRepository;
+
 
     public DoctorApplication(DoctorController doctorController, AppointmentController appointmentController, PatientRepository patientRepository) {
         this.doctorController = doctorController;
@@ -92,16 +93,13 @@ public class DoctorApplication {
     }
 
     public void getDoctorById(int id) {
-        Doctor doctor = doctorController.getDoctorById(id);
-        if (doctor != null) {
+        Optional<Doctor> doctorOptional = doctorController.getDoctorById(id);
+        doctorOptional.ifPresentOrElse(doctor -> {
             System.out.println("Doctor ID: " + doctor.getId());
             System.out.println("Full Name: " + doctor.getFullName());
             System.out.println("Specialization: " + doctor.getSpecialization());
-        } else {
-            System.out.println("Doctor not found.");
-        }
+        }, () -> System.out.println("Doctor not found."));
     }
-
     public void listAllDoctors() {
         List<Doctor> doctors = doctorController.getAllDoctors();
         if (doctors.isEmpty()) {
@@ -119,4 +117,3 @@ public class DoctorApplication {
         }
     }
 }
-

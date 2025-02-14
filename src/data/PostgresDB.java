@@ -1,5 +1,4 @@
 package data;
-
 import data.interfaces.IDB;
 import java.sql.Connection;
 import java.sql.DriverManager;

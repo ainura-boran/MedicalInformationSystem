@@ -1,7 +1,5 @@
 package controllers.interfaces;
-
 import models.Doctor;
-
 import java.util.List;
 
 public interface IDoctorController {

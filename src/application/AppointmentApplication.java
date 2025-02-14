@@ -16,9 +16,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+
 public class AppointmentApplication {
     public static void main(String[] args) {
-        IDB database = new PostgresDB("jdbc:postgresql://localhost:5433", "postgresdb", "0007", "medicalInformationSystem");
+        IDB database = new PostgresDB("jdbc:postgresql://localhost:5432", "postgresdb", "0000", "medicalInformationSystem");
 
         IAppointmentRepository repository = new AppointmentRepository(database);
         IDoctorRepository doctorRepository = new DoctorRepository(database);
@@ -42,6 +43,7 @@ public class AppointmentApplication {
         } else {
             System.out.println("Failed to schedule appointment. Doctor might not be available.");
         }
+
 
         System.out.print("Enter Appointment ID to view details: ");
         int appointmentId = scanner.nextInt();

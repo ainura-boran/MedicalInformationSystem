@@ -16,6 +16,7 @@ public class PatientRepository implements IPatientRepository {
     public PatientRepository(IDB db) {
         this.db = db;
     }
+
     @Override
     public boolean addPatient(Patient patient) {
         String sql = "INSERT INTO patients (iin, full_name, date_Of_Birth, nationality, gender, citizenship, address, blood_Group, rhesus_Factor ) " +
@@ -39,6 +40,7 @@ public class PatientRepository implements IPatientRepository {
             return false;
         }
     }
+
     @Override
     public Patient getPatientById(int id) {
         String query = "SELECT * FROM patients WHERE id = ?";

@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Admins to view all data.");
         System.out.println();
 
-        PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "0000", "medicalInformationSystem");
+        PostgresDB db = new PostgresDB("jdbc:postgresql://localhost:5433", "postgres", "0007", "hospital");
 
         DoctorRepository doctorRepository = new DoctorRepository(db);
         PatientRepository patientRepository = new PatientRepository(db);
