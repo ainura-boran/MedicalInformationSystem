@@ -2,7 +2,6 @@ package controllers;
 
 import models.Doctor;
 import org.mindrot.jbcrypt.BCrypt;
-import repositories.DoctorRepository;
 import repositories.interfaces.IDoctorRepository;
 import java.util.List;
 import java.util.Optional;
