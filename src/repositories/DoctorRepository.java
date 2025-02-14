@@ -22,30 +22,6 @@ public class DoctorRepository implements IDoctorRepository {
         this.db = db;
     }
 
-    public List<Appointment> getAppointmentsForDoctor(int doctorId) {
-        List<Appointment> appointments = new ArrayList<>();
-        String query = "SELECT * FROM appointments WHERE doctor_id = ?";
-
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, doctorId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                appointments.add(new Appointment(
-                        rs.getInt("id"),
-                        rs.getInt("doctor_id"),
-                        rs.getInt("patient_id"),
-                        rs.getTimestamp("date_time").toLocalDateTime(),
-                        rs.getString("status")
-                ));
-            }
-        } catch (Exception e) {
-            System.out.println("Error retrieving appointments: " + e.getMessage());
-        }
-        return appointments;
-    }
-
     public boolean registerDoctor(String fullName, String specialization, String workingHours,
                                   String office, int experienceYears, String username, String password) {
         String query = "INSERT INTO doctors (full_name, specialization, working_hours, office, experience_years, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
