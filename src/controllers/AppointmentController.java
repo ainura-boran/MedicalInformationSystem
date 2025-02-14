@@ -51,13 +51,4 @@ public class AppointmentController {
             }
         }
     }
-
-    public int getAppointmentsCountForDoctorOnDate(int doctorId, LocalDateTime date) {
-        System.out.println("Checking appointments for Doctor ID: " + doctorId + " on " + date);
-
-        return (int) repository.getAllAppointments().stream()
-                .filter(a -> a.getDoctorId() == doctorId && a.getDate().toLocalDate().equals(date.toLocalDate()))
-                .count();
-
-    }
 }
